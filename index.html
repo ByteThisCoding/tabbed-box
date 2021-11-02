@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Tabbed Box - Byte This!</title>
+
+    <style>
+        body {
+            font-family: Consolas;
+            font-size: 1.4em;
+            margin: 0;
+            padding: 0;
+            background-color: #ffe1ff;
+        }
+
+        #like-p {
+            color: #790a9e;
+            font-weight: bold;
+        }
+
+        header {
+            border-bottom: 1px solid black;
+            padding: 10px;
+            background-color: #a64bc5;
+        }
+
+        content {
+            display: block;
+            padding: 20px;
+        }
+
+        /** Tabbed Box CSS **/
+
+        /* Invisible until JavaScript processes it */
+        .tabbed-box-container {
+            display: none;
+        }
+
+        .tabbed-box-container-processed {
+            display: block;
+            border: 2px solid black;
+        }
+
+        .tabbed-box {
+            display: none;
+        }
+
+        .tabbed-box-selected {
+            display: block;
+            padding: 10px;
+        }
+
+        .tabbed-container-tab-row {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .tabbed-box-tab {
+            border: 2px solid black;
+            padding: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .tabbed-box-tab:hover {
+            background-color: #ffc8ff;
+        }
+
+        .tabbed-box-tab-selected {
+            background-color: #d87df7;
+        }
+    </style>
+    <script>
+        /**
+         * We'll use a class to control tabbed boxes
+         * This way we can have multiple tabbed boxes controlled
+         * by multiple instances
+         */ 
+        class TabbedBox {
+            constructor(divId) {
+                console.log(`Initializing tabbed box for ${divId}`);
+                this.init(divId);
+            }
+
+            init(divId) {
+                //get element refs
+                this.containerElement = document.getElementById(divId);
+                this.tabbedBoxElements = Array.from(
+                    this.containerElement.querySelectorAll(".tabbed-box")
+                );
+
+                //create tab objects
+                const tabRow = document.createElement('div');
+                tabRow.classList.add("tabbed-container-tab-row");
+
+                this.tabElements = [];
+
+                this.tabbedBoxElements.forEach((tab, index) => {
+                    const tabDiv = document.createElement("div");
+                    tabDiv.classList.add("tabbed-box-tab");
+                    tabDiv.innerText = tab.dataset.title;
+                    tabRow.appendChild(tabDiv);
+
+                    //listen to click to select tab
+                    tabDiv.addEventListener("click", () => {
+                        this.selectBox(index);
+                    });
+
+                    this.tabElements.push(tabDiv);
+                });
+
+                //add row and process container
+                this.containerElement.insertBefore(
+                    tabRow,
+                    this.containerElement.firstElementChild
+                );
+                this.containerElement.classList.remove("tabbed-box-container");
+                this.containerElement.classList.add("tabbed-box-container-processed");
+
+                //set default to first box
+                this.selectBox(0);
+            }
+
+            /**
+             * Update css classes for the boxes based on new selection
+             */ 
+            selectBox(index) {
+                console.log(`Selecting box with index ${index}`);
+                this.tabbedBoxElements.forEach((el, forIndex) => {
+                    if (forIndex === index) {
+                        el.classList.add("tabbed-box-selected");
+                        el.classList.remove("tabbed-box");
+                    } else {
+                        el.classList.remove("tabbed-box-selected");
+                        el.classList.add("tabbed-box");
+                    }
+                });
+
+                this.tabElements.forEach((el, forIndex) => {
+                    if (forIndex === index) {
+                        el.classList.add("tabbed-box-tab-selected");
+                    } else {
+                        el.classList.remove("tabbed-box-tab-selected");
+                    }
+                });
+            }
+        }
+
+        //process the example tabbed box on document load
+        document.addEventListener("DOMContentLoaded", () => {
+            const exampleBox = new TabbedBox("example-box");
+            console.log("Example box class instance: ", exampleBox);
+        });
+    </script>
+</head>
+<body>
+
+    <header>
+        Web-Dev with Music - Byte This!
+    </header>
+
+    <content>
+        <h1>Tabbed Box</h1>
+        <p>Let's display some content within a tabbed box.
+            <br><br>We'll define the contents and titles of each tab
+            with HTML, then use JavaScript and CSS classes
+            to render the display.
+        </p>
+
+        <div id="example-box" class="tabbed-box-container">
+            <!-- We'll define each tab within a class "tabbed-box" -->
+            <!-- The title will be stored in "data-title" -->
+            <div class="tabbed-box" data-title="Left">
+                <p>This is the leftmost box.</p>
+            </div>
+            <div class="tabbed-box" data-title="Middle">
+                <p>This is the middle box.</p>
+                <p id="like-p">
+                    Don't forget to like and subscribe!
+                </p>
+            </div>
+            <div class="tabbed-box" data-title="Right">
+                <p>This is the rightmost box.</p>
+            </div>
+        </div>
+
+    </content>
+</body>
+</html>
