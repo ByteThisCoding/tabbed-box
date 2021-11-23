@@ -42,6 +42,7 @@
             border: 2px solid black;
         }
 
+        /* Unless selected, tabbed box contents are hidden */
         .tabbed-box {
             display: none;
         }
@@ -51,6 +52,7 @@
             padding: 10px;
         }
 
+        /* Flex row so tabs appear in a horizontal row */
         .tabbed-container-tab-row {
             display: flex;
             flex-direction: row;
@@ -98,6 +100,7 @@
 
                 this.tabElements = [];
 
+                //for each tabbed box, create the tab element and add to the tabs row
                 this.tabbedBoxElements.forEach((tab, index) => {
                     const tabDiv = document.createElement("div");
                     tabDiv.classList.add("tabbed-box-tab");
@@ -117,6 +120,7 @@
                     tabRow,
                     this.containerElement.firstElementChild
                 );
+                //mark that we've processed this box and let css rules take over
                 this.containerElement.classList.remove("tabbed-box-container");
                 this.containerElement.classList.add("tabbed-box-container-processed");
 
@@ -129,6 +133,8 @@
              */ 
             selectBox(index) {
                 console.log(`Selecting box with index ${index}`);
+
+                //for each tab element, use classes to mark it as not selected, except for the newly selected one
                 this.tabbedBoxElements.forEach((el, forIndex) => {
                     if (forIndex === index) {
                         el.classList.add("tabbed-box-selected");
@@ -170,6 +176,7 @@
             to render the display.
         </p>
 
+        <!-- The tabbed box is entirely contained within this div -->
         <div id="example-box" class="tabbed-box-container">
             <!-- We'll define each tab within a class "tabbed-box" -->
             <!-- The title will be stored in "data-title" -->
@@ -179,7 +186,7 @@
             <div class="tabbed-box" data-title="Middle">
                 <p>This is the middle box.</p>
                 <p id="like-p">
-                    Don't forget to like and subscribe!
+                    Don't forget to follow us on social media!
                 </p>
             </div>
             <div class="tabbed-box" data-title="Right">
