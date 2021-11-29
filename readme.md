@@ -1,5 +1,7 @@
 # tabbed-box
-This is an example of a basic tabbed box which allows the user to select a tab and view the contents of that tab.
+This is an example of a basic tabbed box which allows the user to select a tab and view the contents of that tab. Feel free to also take a look at:
+* Our [YouTube Video](https://www.youtube.com/watch?v=vxY4VLvl38o&t=312s), where we code this in real time with some music.
+* Our [Dev Page](https://bytethisstore.com/articles/pg/js-tabbed-box), where we cover this topic in more detail.
 
 This example covers:
 1. Defining the tab titles and contents within the HTML markup.
