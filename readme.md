@@ -3,6 +3,9 @@ This is an example of a basic tabbed box which allows the user to select a tab a
 * Our [YouTube Video](https://www.youtube.com/watch?v=vxY4VLvl38o&t=312s), where we code this in real time with some music.
 * Our [Dev Page](https://bytethisstore.com/articles/pg/js-tabbed-box), where we cover this topic in more detail.
 
+## Demo the Live Example
+The live example can be viewed in action on [this page](https://htmlpreview.github.io/?https://github.com/ByteThisStore/tabbed-box/blob/main/index.html).
+
 This example covers:
 1. Defining the tab titles and contents within the HTML markup.
 1. Using JavaScript to manage the creation of the tabbed box container and remove some redundant markup.
